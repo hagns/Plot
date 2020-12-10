@@ -1,0 +1,22 @@
+#!/bin/bash
+set terminal postscript eps enhanced color size 8, 6 linewidth 1 font "Arial,35" 
+set output "hei-1127.eps"
+set key at graph 0.8,0.95
+set key spacing 1.8
+set xtics nomirror
+unset x2tics
+set xtics 0,10,110 scale -1.2 font "Arial,30" 
+set xlabel "2-Theta (degree)"; set xrange [20:87]
+#arbitary unit
+set ylabel "Intensity (a.u.)"; set yrange [-800:3550]; unset ytics
+#set ylabel "Intensity (a.u.)" offset 1.0
+set lmargin at screen 0.10
+set rmargin at screen 0.96
+set tmargin at screen 0.96
+set bmargin at screen 0.17
+#set arrow 1 from 0, 0 to 0, 250 linestyle 0 linecolor '#000000' linewidth 2 nohead
+plot "hei.dat" using 1:2 with points linecolor '#000000' lt 2 lw 2 title "Observed", \
+     "hei.dat" using 1:3 with lines linecolor '#FF0000' lt 1 lw 3 title "Calculated", \
+	 "hei.dat" using 1:($4+300) with lines linecolor '#0000FF' lt 1 lw 2 title "Difference", \
+	 "hei-peaks.dat" using 1:(-130) with points linecolor '#00FF00' pt '|' lw 2 title "Bragg position"
+set output
